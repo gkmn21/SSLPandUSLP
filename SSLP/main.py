@@ -12,18 +12,18 @@ from torch.nn.functional import normalize
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 
-import h5py
+
 
 import os
 import logging
 import json
 from tqdm.autonotebook import tqdm
+import h5py
 import pickle
 from abc import ABC, abstractmethod
 from prettytable import PrettyTable
 
 
-# local imports
 from Constants import ModeType, BatchType, train_metrics, Optimizers
 from data_handling import DataManager, TrainDataset, TestDataset
 from models import SSLP
@@ -76,9 +76,10 @@ if '__main__' == __name__:
 
     # data - load embeddings, entity/relation dictionaries
     # new tranductive split data manager
+    data_dir = '../'
     data_manager = DataManager(
         device = device,
-        data_folder = args.data_path,
+        data_folder = os.path.join(data_dir, args.data_path),
         use_key_value_emb = True,
         use_relation_emb = True,
         use_hierarchy_info = (0.0 < args.hierarchy_weight)
@@ -148,7 +149,6 @@ if '__main__' == __name__:
     if args.without_dynamic_emb: logging.info(f'Without dynamic embedding: {args.without_dynamic_emb}')
     if args.without_layer_norm: logging.info(f'Without layer norm: {args.without_layer_norm}')
     logging.info(f'Hierarchy weight: {args.hierarchy_weight}')
-    logging.info(f'save_embeddings: {args.save_embeddings}')
 
     if args.do_train:
 
@@ -259,8 +259,8 @@ if '__main__' == __name__:
         # save losses as pkl file
         with open(os.path.join(args.save_path, 'train_losses.pkl'), 'wb') as f:
             pickle.dump(persisted_training_logs, f)
-        plot_losses(persisted_training_logs, args.save_path)
-        # save_model(model, optimizer, save_variable_list, args)
+        # plot_losses(persisted_training_logs, args.save_path)
+        save_model(model, optimizer, save_variable_list, args)
 
     if args.do_valid:
         logging.info('Evaluating on Valid Dataset...')

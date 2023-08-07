@@ -12,10 +12,12 @@ import pdb
 import logging
 import os
 import textdistance
+import argparse
 
 
 
 from approach_utils import (
+    inductive_baseline_parse_args,
     set_logger, triple_uri_to_idx,
     naivebaseline_score,
     get_metrics
@@ -23,10 +25,13 @@ from approach_utils import (
 
 if '__main__' == __name__:
 
-    # Write logs to checkpoint and console
-    save_path = 'Results/<save_path>'
-    data_path = '<data_path>'
-    label_column_name = 'nameEn' # label column of naive baseline
+    data_dir = '../Datasets'
+    args = inductive_baseline_parse_args()
+    save_path = args.save_path
+    data_path = os.path.join(data_dir, args.data_path)
+    label_column_name = args.label_column_name # label column of naive baseline
+    print(args)
+
     if save_path and not os.path.exists(save_path):
         os.makedirs(save_path)
     set_logger(log_file = os.path.join(save_path, 'test_log.log'))
@@ -36,7 +41,7 @@ if '__main__' == __name__:
     ##
     # read data
     ##
-    entities_data = pd.read_csv(os.path.join(data_path,'final_approach_data_with_geohash_and_cluster_center.csv'))
+    entities_data = pd.read_csv(os.path.join(data_path,'final_approach_data.csv'))
     logging.info(f'entities_data.shape {entities_data.shape}')
 
 

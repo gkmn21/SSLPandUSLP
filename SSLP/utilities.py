@@ -50,10 +50,9 @@ def parse_args(args = None):
     parser.add_argument('--test_log_steps', default = 1000, type = int, help = 'valid/test log every xx steps')
 
     parser.add_argument('--no_decay', action = 'store_true', help = 'Learning rate does not decay')
-    parser.add_argument('--with_type_sampler', action = 'store_false', help = 'Do not apply type based sampling') #rename this flag correctly
+    parser.add_argument('--with_type_sampler', action = 'store_true', help = 'Apply type based sampling')
     parser.add_argument('--score_f', default = 'HAKE', help = 'Score function')
     parser.add_argument('--without_attn', default = False, help = 'Flag to perform ablation on attention & FC layer')
-    parser.add_argument('--save_embeddings', action = 'store_true', help = 'Flag to perform ablation on attention & FC layer')
     parser.add_argument('--without_static_emb', action = 'store_true', help = 'Do not use static embeddings')
     parser.add_argument('--without_dynamic_emb', action = 'store_true', help = 'Do not use dynamic embeddings')
     parser.add_argument('--without_layer_norm', action = 'store_true', help = 'Do not use layer norm')
@@ -201,18 +200,22 @@ def save_model(model, optimizer, save_variable_list, args):
         os.path.join(args.save_path, f"checkpoint_{save_variable_list['step']}")
     )
 
-    # entity_embedding = model.entity_embedding.detach().cpu().numpy()
-    # _entity_embedding = model.entity_embedding.weight.detach().cpu().numpy()
-    # np.save(
-    #     os.path.join(args.save_path, f"entity_embedding_{save_variable_list['step']}"),
-    #     _entity_embedding
-    # )
+    entity_static_embeddings = model.entity_static_embeddings.weight.detach().cpu().numpy()
+    entity_dynamic_embeddings = model.entity_dynamic_embeddings.weight.detach().cpu().numpy()
+    np.save(
+        os.path.join(args.save_path, f"entity_static_embeddings_{save_variable_list['step']}"),
+        entity_static_embeddings
+    )
+    np.save(
+        os.path.join(args.save_path, f"entity_dynamic_embeddings_{save_variable_list['step']}"),
+        entity_dynamic_embeddings
+    )
 
-    # relation_embedding = model.relation_embedding.detach().cpu().numpy()
-    # np.save(
-    #     os.path.join(args.save_path, f"relation_embedding_{save_variable_list['step']}"),
-    #     relation_embedding
-    # )
+    relation_embeddings = model.relation_embeddings.weight.detach().cpu().numpy()
+    np.save(
+        os.path.join(args.save_path, f"relation_embeddings_{save_variable_list['step']}"),
+        relation_embeddings
+    )
 
 # load saved model and embeddings
 def load_model(save_path, step, model, optimizer):

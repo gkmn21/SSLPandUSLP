@@ -12,6 +12,40 @@ from tqdm import tqdm
 import re
 import pdb
 import logging
+import argparse
+
+def parse_args(args = None):
+    '''
+    Argument parser
+    '''
+    parser = argparse.ArgumentParser(
+        description = 'Parser for USLP script',
+        usage = 'USLP_main.py [<args>] [-h | --help]'
+    )
+    parser.add_argument('--save_path', type = str, default = 'Results/exp_X', help = 'path for saving results')
+    parser.add_argument('--data_path', type = str, default = 'ID1')
+    parser.add_argument('--with_score1', action = 'store_true')
+    parser.add_argument('--with_score2', action = 'store_true')
+    parser.add_argument('--with_score3', action = 'store_true')
+    parser.add_argument('--with_SBERT_score', action = 'store_true')
+    
+    return parser.parse_args(args)
+
+def inductive_baseline_parse_args(args = None):
+    '''
+    Argument parser
+    '''
+    parser = argparse.ArgumentParser(
+        description = 'Parser for  naive_baseline script',
+        usage = 'naive_baseline.py [<args>] [-h | --help]'
+    )
+    parser.add_argument('--save_path', type = str, default = 'Results/exp_X', help = 'path for saving results')
+    parser.add_argument('--data_path', type = str, default = 'ID1')
+    parser.add_argument('--label_column_name', type = str, default = 'nameEn', help = 'label column of naive baseline')
+    
+    return parser.parse_args(args)
+
+
 
 def set_logger(log_file):
     '''

@@ -12,26 +12,27 @@ import re
 import pdb
 import logging
 import os
-
-# from sentence_transformers import util
+import argparse
 
 from approach_utils import (
-    set_logger, triple_uri_to_idx,
+    parse_args, set_logger, triple_uri_to_idx,
     space1_geohash_score, space2_score, space3_score, space4_score,
     get_metrics
 )
 
 if '__main__' == __name__:
 
-
-    save_path = 'Results/exp_1'
-    data_path = 'data'
-
+    data_dir = '../Datasets'
+    args = parse_args()
+    save_path = args.save_path
+    data_path = os.path.join(data_dir, args.data_path)
     # score flags for ablation study
-    with_score1 = True
-    with_score2 = True
-    with_score3 = True
-    with_SBERT_score = True
+    with_score1 = args.with_score1
+    with_score2 = args.with_score2
+    with_score3 = args.with_score3
+    with_SBERT_score = args.with_SBERT_score
+    print(args)
+
 
     # Write logs to checkpoint and console
     if save_path and not os.path.exists(save_path):
@@ -43,7 +44,7 @@ if '__main__' == __name__:
     ##
     # read data
     ##
-    entities_data = pd.read_csv(os.path.join(data_path,'final_approach_data_with_geohash_and_cluster_center.csv'))
+    entities_data = pd.read_csv(os.path.join(data_path,'final_approach_data.csv'))
     logging.info(f'entities_data.shape {entities_data.shape}')
 
     #  Read Space 1 embeddings
@@ -76,14 +77,6 @@ if '__main__' == __name__:
     with h5py.File(os.path.join(data_path,'test_set_literal_value_embeddings_file.h5'), 'r') as hf:
         test_set_literal_value_embeddings = hf['test_set_literal_value_embeddings'][:]
     logging.info(f'test_set_literal_value_embeddings.shape {test_set_literal_value_embeddings.shape}')
-
-    # # save label index as .dict file
-    # with open(os.path.join(data_path,'label_entity_idx_dict.dict'), 'rb') as handle:
-    #     label_to_idx_dict = pickle.load(handle)
-    # logging.info(len(label_to_idx_dict.keys()))
-    with open(os.path.join(data_path,'label_entity_idx.pickle'), 'rb') as handle:
-        label_to_idx_dict = pickle.load(handle)
-    logging.info(len(label_to_idx_dict.keys()))
 
     # Space 3 data
     ## type and relation embeddings

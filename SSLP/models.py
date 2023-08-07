@@ -383,7 +383,6 @@ class SSLP(KGEModelWithMultiInput):
             r_direction: [batch_size]
             head_hierarchy_level: [batch_size]
             tail_hierarchy_level: [batch_size, negative_sample_size]
-
         '''
 
         # h_static refinement
