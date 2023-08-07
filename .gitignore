@@ -3,6 +3,15 @@
 
 __pycache__
 
+# data & generated embeddings
+*.pickle
+*.h5
+*.dict
+final_approach_data.csv
+KeyValues_of_final_approach_entities.txt 
+
+
 # results directory
 SSLP/Results
 USLP/Results
+
