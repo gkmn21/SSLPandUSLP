@@ -1,9 +1,9 @@
 # Spatial Link Prediction with Spatial and Semantic Embeddings
 
-The code in this repository is an implementation of our published approach:
+The code in this repository is an implementation of our published approach:<br>
 Genivika Mann, Alishiba Dsouza, Ran Yu, Elena Demidova. "Spatial Link Prediction with Spatial and Semantic Embeddings".
 In International Semantic Web Conference (ISWC 2023). DOI: https://doi.org/10.1007/978-3-031-47240-4_10.
-
+<br>
 If you use the source code, please cite our research (see [Citation](#citation)). <br>
 
 ## Folders
