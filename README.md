@@ -1,6 +1,10 @@
 # Spatial Link Prediction with Spatial and Semantic Embeddings
 
-This folder contains the scripts for the paper **Spatial Link Prediction with Spatial and Semantic Embeddings**.
+The code in this repository is an implementation of our published approach:
+Genivika Mann, Alishiba Dsouza, Ran Yu, Elena Demidova. "Spatial Link Prediction with Spatial and Semantic Embeddings".
+In International Semantic Web Conference (ISWC 2023). DOI: https://doi.org/10.1007/978-3-031-47240-4_10.
+
+If you use the source code, please cite our research (see [Citation](#citation)). <br>
 
 ## Folders
 - `SSLP`, `USLP` - contain codes for the models SSLP and USLP respectively
@@ -83,3 +87,34 @@ Steps to generate datasets:
 2. Run the file `Ground Truth Generation\TD1_dataset_generation.ipynb` to generate TD1 dataset using triples present in `spo_triples_iter1`.
 3. The file `Ground Truth Generation\wikidata_matched_triples.zip` contains ground truth generated using WorldKG Wikidata identity links.
 4. Run the file `Ground Truth Generation\ID1_TD2_dataset_generation.ipynb` which generates ID1 and TD2 dataset by merging triples present in `wkg_gt.zip` and wikidata ground truth `wkg_wikidata_gt.zip`.
+
+## Disclaimer
++ The OpenStreetMap name is a trademark of the OpenStreetMap Foundation and is used with their permission. We are not endorsed by or affiliated with the OpenStreetMap Foundation.
++ This code  is published only to support reproducibility in research. It is not intended for any type of commercial use or placement on the market.
+
+## Licenses
+  + The folders `Ground Truth Generation` and `Datasets` and the file `Constants.py` contain data derived from OpenStreetMap. The data is © OpenStreetMap contributors, made available under the terms of the [Open Database License (ODbL)](https://opendatacommons.org/licenses/odbl/) https://opendatacommons.org/licenses/odbl/ by the OpenStreetMap Foundation (OSMF) https://www.openstreetmap.org/copyright.
+  + The code in this repository, except for the OpenStreetMap material identified above, is licensed under the MIT license.
+
+## Acknowledgements
+This work was partially funded by the DFG, German Research Foundation (“WorldKG”, 424985896), the Federal Ministry for Economic Affairs and Climate Action (BMWK), Germany (“ATTENTION!”, 01MJ22012C), and DAAD/BMBF, Germany (“KOALA”, 57600865).
+
+
+## Citation
+If you find this work useful in your research, please cite:
+
+```bibtex
+@InProceedings{10.1007/978-3-031-47240-4_10,
+author="Mann, Genivika
+and Dsouza, Alishiba
+and Yu, Ran
+and Demidova, Elena",
+title="Spatial Link Prediction with Spatial and Semantic Embeddings",
+booktitle="The Semantic Web -- ISWC 2023",
+year="2023",
+publisher="Springer Nature Switzerland",
+address="Cham",
+pages="179--196",
+isbn="978-3-031-47240-4"
+}
+```
